@@ -1,0 +1,4 @@
+你好 {{ mailuser.username }},
+欢迎加入！
+验证帐号请点击下面链接：
+{{ url_for('auth.confirmmail', token=token, _external=True) }}
