@@ -10,12 +10,58 @@ from flask import current_app
 from flask_login import UserMixin
 from . import mydb, login_manager
 
-class Permission:
-    FOLLOW = 0x01
-    COMMENT = 0x02
-    WRITE_ARTICLES = 0x04
-    MODERATE_COMMENTS = 0x08
-    ADMINISTER = 0x80
+class Permission(mydb.Model):
+    """permission list"""
+    __tablename__ = 'permission'
+    pid = mydb.Column(mydb.Integer, primary_key=True)
+    stagenum = mydb.Column(mydb.Integer)
+    groupnum = mydb.Column(mydb.Integer)
+    tauid = mydb.Column(mydb.Integer)
+    power = mydb.Column(mydb.Integer)
+
+    def __repr__(self):
+        return '<Permission %r>' % self.pid
+
+
+
+class Students(mydb.Model):
+    """Students info"""
+    __tablename__ = 'students'
+    stdtid = mydb.Column(mydb.Integer, primary_key=True)
+    instageid = mydb.Column(mydb.String(64))
+    stdtname = mydb.Column(mydb.String(64))
+    stagenum = mydb.Column(mydb.Integer)
+    groupnum = mydb.Column(mydb.Integer)
+    warned = mydb.Column(mydb.Boolean, default=False)
+    notactive = mydb.Column(mydb.Boolean, default=False)
+
+    def __repr__(self):
+        return '<Students %r>' % self.stdtname
+
+class Records(mydb.Model):
+    """Points and Records"""
+    __tablename__ = 'records'
+    recordid = mydb.Column(mydb.Integer, primary_key=True)
+    stdtid = mydb.Column(mydb.Integer)
+    stagenum = mydb.Column(mydb.Integer)
+    weekid = mydb.Column(mydb.Integer)
+    work1 = mydb.Column(mydb.Integer)
+    work2 = mydb.Column(mydb.Integer)
+    work3 = mydb.Column(mydb.Integer)
+    work4 = mydb.Column(mydb.Integer)
+    work5 = mydb.Column(mydb.Integer)
+    work6 = mydb.Column(mydb.Integer)
+    work7 = mydb.Column(mydb.Integer)
+    work8 = mydb.Column(mydb.Integer)
+    work9 = mydb.Column(mydb.Integer)
+    work10 = mydb.Column(mydb.Integer)
+    work11 = mydb.Column(mydb.Integer)
+    work12 = mydb.Column(mydb.Integer)
+
+
+    def __repr__(self):
+        return '<Records %r>' % self.stdtid
+
 
 class Role(mydb.Model):
     """role"""

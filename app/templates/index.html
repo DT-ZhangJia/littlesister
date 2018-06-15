@@ -1,18 +1,62 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Little Sister{% endblock %}
+{% block title %}Little Sister is watching you!{% endblock %}
 
 {% block page_content %}
 
+<!-- 顶层 -->
 <div class="page-header">
-    <h1>你好，
-        {% if current_user.is_authenticated %}
-            {{ current_user.username }}
-        {% else %}
-            陌生人
-        {% endif %}！
-    </h1>
+    <h3>积分总排名
+    </h3>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>小组排名</h4>
+            <table class="table table-striped">
+                <tread>
+                    <tr>
+                        <th>排名</th>
+                        <th>小组</th>
+                        <th>积分</th>
+                    </tr>
+                </tread>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>A组</td>
+                        <td>100</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h4>个人排名</h4>
+                <table class="table table-striped">
+                    <tread>
+                        <tr>
+                            <th>排名</th>
+                            <th>学号</th>
+                            <th>学员</th>
+                            <th>小组</th>
+                            <th>积分</th>
+                        </tr>
+                    </tread>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>001</td>
+                            <td>张三</td>
+                            <td>A组</td>
+                            <td>30</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Little Sister is watching you!{% endblock %}
+
+{% block page_content %}
+
+<!-- 顶层 -->
+<div class="page-header">
+    <h3>{{ teamdict[teamnum|int] }}组积分表</h3>
+</div>
+
+    <div class="container">
+        {% for weekid,weedname in weekdict.items() %}
+            <h4>第{{ weekdict[weekid] }}周</h4>
+
+            <table class="table table-striped">
+                <tread>
+                    <tr>
+                        <th>学号</th>
+                        <th>学员</th>
+                        <th>编辑</th>
+                        <th>HW1</th>
+                        <th>HW2</th>
+                        <th>打卡</th>
+                        <th>打卡前三</th>
+                        <th>答疑</th>
+                        <th>分享</th>
+                        <th>干货</th>
+                        <th>笔记</th>
+                        <th>选上话题</th>
+                        <th>直播</th>
+                        <th>脑洞</th>
+                        <th>帮助助教</th>
+                    </tr>
+                </tread>
+                <tbody>
+                    {% for record in team_records %}
+                        {% if (record.weekid == weekid) and (studentDict[record.stdtid][2] == teamnum|int) %} 
+                            <tr>
+                                <td>{{ studentDict[record.stdtid][0] }}</td>
+                                <td>{{ studentDict[record.stdtid][1] }}</td>
+
+                                <td>{% if mypower == 2 %}
+                                    <button class="btn btn-success btn-xs" data-toggle="modal" 
+                                    data-target="{{ '#myModal' + record.recordid|string }}">修改
+                                    </button>
+                        
+                                    <!-- 编辑模态框 -->
+                                    <div class="modal fade" id="{{ 'myModal' + record.recordid|string }}" 
+                                        tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">{{ studentDict[record.stdtid][0] }}号 {{ studentDict[record.stdtid][1] }} | 第{{ weekdict[weekid] }}周</h4>
+                                                </div>
+                                            <div class="modal-body">
+                                                    <form method="POST" class="form" role="form">
+                                                            {{ modalform.hidden_tag() }}
+                                                            {{ modalform.modalrecordid(type='hidden', value=record.recordid) }}
+                                                            <div class="form-group ">{{ modalform.modalWork1.label(class="control-label") }} {{ modalform.modalWork1(class="form-control", value=record.work1) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork2.label(class="control-label") }} {{ modalform.modalWork2(class="form-control", value=record.work2) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork3.label(class="control-label") }} {{ modalform.modalWork3(class="form-control", value=record.work3) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork4.label(class="control-label") }} {{ modalform.modalWork4(class="form-control", value=record.work4) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork5.label(class="control-label") }} {{ modalform.modalWork5(class="form-control", value=record.work5) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork6.label(class="control-label") }} {{ modalform.modalWork6(class="form-control", value=record.work6) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork7.label(class="control-label") }} {{ modalform.modalWork7(class="form-control", value=record.work7) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork8.label(class="control-label") }} {{ modalform.modalWork8(class="form-control", value=record.work8) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork9.label(class="control-label") }} {{ modalform.modalWork9(class="form-control", value=record.work9) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork10.label(class="control-label") }} {{ modalform.modalWork10(class="form-control", value=record.work10) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork11.label(class="control-label") }} {{ modalform.modalWork11(class="form-control", value=record.work11) }}</div>
+                                                            <div class="form-group ">{{ modalform.modalWork12.label(class="control-label") }} {{ modalform.modalWork12(class="form-control", value=record.work12) }}</div>
+                                                            {{ modalform.modalsubmit(class="btn btn-default") }}
+                                                    </form>
+                                            </div>
+                                                <!--<div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary">提交更改</button>
+                                                </div>-->
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+                                    {% elif mypower == 1 %}
+
+                                    <button class="btn btn-default btn-xs" data-toggle="modal" 
+                                        data-target="{{ '#myModalcheck' + record.recordid|string }}">更新
+                                    </button>
+                        
+                                    <!-- 编辑模态框 -->
+                                    <div class="modal fade" id="{{ 'myModalcheck' + record.recordid|string }}" 
+                                        tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">{{ studentDict[record.stdtid][0] }}号 {{ studentDict[record.stdtid][1] }} | 第{{ weekdict[weekid] }}周</h4>
+                                                </div>
+                                            <div class="modal-body">
+                                                    <form method="POST" class="form" role="form">
+                                                            {{ checkform.hidden_tag() }}
+                                                            {{ checkform.modalrecordid_check(type='hidden', value=record.recordid) }}
+                                                            <div class="form-group ">{{ checkform.modalcheck.label(class="control-label") }} {{ checkform.modalcheck(class="form-control", value=record.work3) }}</div>
+                                                            {{ checkform.modalsubmit_check(class="btn btn-default") }}
+                                                    </form>
+                                            </div>
+                                                <!--<div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary">提交更改</button>
+                                                </div>-->
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    {% endif %}
+                                </td>
+
+
+                                <td>{{ record.work1 }}</td>
+                                <td>{{ record.work2 }}</td>
+                                <td>{{ record.work3 }}</td>
+                                <td>{{ record.work4 }}</td>
+                                <td>{{ record.work5 }}</td>
+                                <td>{{ record.work6 }}</td>
+                                <td>{{ record.work7 }}</td>
+                                <td>{{ record.work8 }}</td>
+                                <td>{{ record.work9 }}</td>
+                                <td>{{ record.work10 }}</td>
+                                <td>{{ record.work11 }}</td>
+                                <td>{{ record.work12 }}</td>
+
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
