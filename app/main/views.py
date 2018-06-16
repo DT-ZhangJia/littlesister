@@ -16,6 +16,8 @@ from .forms import UpdateForm, UpdateCheck
 
 
 studentDict = {}
+studentrecordDict = {}
+teamrecordDict = {}
 teamdict = {1:"A", 2:"B", 3:"C", 4:"D", 5:"E", 6:"F", 7:"G", 8:"H", 9:"I", 10:"J"}
 weekdict = {1:"一", 2:"二", 3:"三", 4:"四"}
 stage = 4 #供第四期使用
@@ -24,16 +26,29 @@ recorddict = {}
 @main.route('/')
 def index():
     """index view"""
-    all_records = Records.query.filter_by(stagenum = stage).all()
-
 
     all_students = Students.query.all()
     for student in all_students:
         studentDict[student.stdtid] = [student.instageid, student.stdtname, student.groupnum]
+        studentrecordDict[student.stdtid] = 0
+
+    for k,v in teamdict.items():
+        teamrecordDict[k] = 0
+
+    all_records = Records.query.filter_by(stagenum = stage).all()
+    for record in all_records:
+        total = (record.work1 + record.work2 + record.work3 + record.work4 + record.work5 + record.work6
+                 + record.work7 + record.work8 + record.work9 + record.work10 + record.work11 + record.work12)
+
+        studentrecordDict[record.stdtid] = studentrecordDict[record.stdtid] + total 
+        teamrecordDict[studentDict[record.stdtid][2]] = teamrecordDict[studentDict[record.stdtid][2]] + total
+
+    sortrecord = sorted(studentrecordDict.items(),key = lambda item:item[1],reverse = True)
+    sortteam = sorted(teamrecordDict.items(),key = lambda item:item[1],reverse = True)
 
     return render_template('index.html', fullrecords = all_records, 
                            studentDict=studentDict, teamdict=teamdict,
-                           weekdict=weekdict)
+                           weekdict=weekdict, sortrecord=sortrecord, sortteam=sortteam)
 
 
 @main.route('/team<groupnum>', methods=['GET', 'POST'])
