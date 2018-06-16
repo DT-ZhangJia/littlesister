@@ -17,21 +17,21 @@
             <table class="table table-striped">
                 <tread>
                     <tr>
-                        <th>学号</th>
-                        <th>学员</th>
-                        <th>编辑</th>
-                        <th>HW1</th>
-                        <th>HW2</th>
-                        <th>打卡</th>
-                        <th>打卡前三</th>
-                        <th>答疑</th>
-                        <th>分享</th>
-                        <th>干货</th>
-                        <th>笔记</th>
-                        <th>选上话题</th>
-                        <th>直播</th>
-                        <th>脑洞</th>
-                        <th>帮助助教</th>
+                        <th><div style="min-width: 2em;">学号</div></th>
+                        <th><div style="min-width: 3em;">学员</div></th>
+                        <th><div style="min-width: 2em;">编辑</div></th>
+                        <th><div style="min-width: 2em;">HW1</div></th>
+                        <th><div style="min-width: 2em;">HW2</div></th>
+                        <th><div style="min-width: 2em;">打卡</div></th>
+                        <th><div style="min-width: 2em;">打卡前三</div></th>
+                        <th><div style="min-width: 2em;">答疑</div></th>
+                        <th><div style="min-width: 2em;">分享</div></th>
+                        <th><div style="min-width: 2em;">干货</div></th>
+                        <th><div style="min-width: 2em;">笔记</div></th>
+                        <th><div style="min-width: 2em;">选上话题</div></th>
+                        <th><div style="min-width: 2em;">直播</div></th>
+                        <th><div style="min-width: 2em;">脑洞</div></th>
+                        <th><div style="min-width: 2em;">帮助助教</div></th>
                     </tr>
                 </tread>
                 <tbody>
@@ -59,19 +59,19 @@
                                                     <form method="POST" class="form" role="form">
                                                             {{ modalform.hidden_tag() }}
                                                             {{ modalform.modalrecordid(type='hidden', value=record.recordid) }}
-                                                            <div class="form-group ">{{ modalform.modalWork1.label(class="control-label") }} {{ modalform.modalWork1(class="form-control", value=record.work1) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork2.label(class="control-label") }} {{ modalform.modalWork2(class="form-control", value=record.work2) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork3.label(class="control-label") }} {{ modalform.modalWork3(class="form-control", value=record.work3) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork4.label(class="control-label") }} {{ modalform.modalWork4(class="form-control", value=record.work4) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork5.label(class="control-label") }} {{ modalform.modalWork5(class="form-control", value=record.work5) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork6.label(class="control-label") }} {{ modalform.modalWork6(class="form-control", value=record.work6) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork7.label(class="control-label") }} {{ modalform.modalWork7(class="form-control", value=record.work7) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork8.label(class="control-label") }} {{ modalform.modalWork8(class="form-control", value=record.work8) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork9.label(class="control-label") }} {{ modalform.modalWork9(class="form-control", value=record.work9) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork10.label(class="control-label") }} {{ modalform.modalWork10(class="form-control", value=record.work10) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork11.label(class="control-label") }} {{ modalform.modalWork11(class="form-control", value=record.work11) }}</div>
-                                                            <div class="form-group ">{{ modalform.modalWork12.label(class="control-label") }} {{ modalform.modalWork12(class="form-control", value=record.work12) }}</div>
-                                                            {{ modalform.modalsubmit(class="btn btn-default") }}
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork1.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork1(class="form-control", value=record.work1) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork2.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork2(class="form-control", value=record.work2) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork3.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork3(class="form-control", value=record.work3) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork4.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork4(class="form-control", value=record.work4) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork5.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork5(class="form-control", value=record.work5) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork6.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork6(class="form-control", value=record.work6) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork7.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork7(class="form-control", value=record.work7) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork8.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork8(class="form-control", value=record.work8) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork9.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork9(class="form-control", value=record.work9) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork10.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork10(class="form-control", value=record.work10) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork11.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork11(class="form-control", value=record.work11) }}</div>
+                                                            <div style="max-width: 6em; position: absolute; padding-top: 1em">{{ modalform.modalWork12.label(class="control-label") }}</div><div style="margin-left: 6em; margin-top: 1em; margin-bottom: 1em">{{ modalform.modalWork12(class="form-control", value=record.work12) }}</div>
+                                                            <div style="margin-top: 1em; margin-bottom: 1em">{{ modalform.modalsubmit(class="btn btn-default") }}</div>
                                                     </form>
                                             </div>
                                                 <!--<div class="modal-footer">
