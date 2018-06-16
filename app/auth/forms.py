@@ -18,7 +18,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     """register form class"""
     email_reg_input = StringField('Email', validators=[Required(), Length(1, 64), Email()])
-    username_reg_input = StringField('用户名', validators=[Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0, 'Usernames must have only letters, numbers, dots or underscores')]) # pylint: disable=C0301
+    username_reg_input = StringField('姓名/显示名', validators=[Required(), Length(1, 64)]) # pylint: disable=C0301
     passwd_reg_input = PasswordField('密码', validators=[Required(), EqualTo('passwd2_reg_input', message='Passwords must match.')]) # pylint: disable=C0301
     passwd2_reg_input = PasswordField('再次输入密码', validators=[Required()])
     submit_reg_btn = SubmitField('注册')
@@ -27,11 +27,11 @@ class RegisterForm(FlaskForm):
         """check existed email"""
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('此邮箱已经注册。')
-
-    def validate_username_reg_input(self, field):#pylint: disable=R0201
-        """check existed username"""
-        if User.query.filter_by(username=field.data).first():
-            raise ValidationError('用户名已存在。')
+    
+    #def validate_username_reg_input(self, field):#pylint: disable=R0201
+    #    """check existed username"""
+    #    if User.query.filter_by(username=field.data).first():
+    #        raise ValidationError('用户名已存在。')
 
 class ChangepwForm(FlaskForm):
     """change password form"""
