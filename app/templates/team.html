@@ -19,7 +19,9 @@
                     <tr>
                         <th><div style="min-width: 2em;">学号</div></th>
                         <th><div style="min-width: 3em;">学员</div></th>
+                        {% if mypower > 0 %}
                         <th><div style="min-width: 2em;">编辑</div></th>
+                        {% endif %}
                         <th><div style="min-width: 2em;">HW1</div></th>
                         <th><div style="min-width: 2em;">HW2</div></th>
                         <th><div style="min-width: 2em;">打卡</div></th>
@@ -41,7 +43,8 @@
                                 <td>{{ studentDict[record.stdtid][0] }}</td>
                                 <td>{{ studentDict[record.stdtid][1] }}</td>
 
-                                <td>{% if mypower == 2 %}
+                                {% if mypower == 2 %}
+                                <td>
                                     <button class="btn btn-success btn-xs" data-toggle="modal" 
                                     data-target="{{ '#myModal' + record.recordid|string }}">修改
                                     </button>
@@ -81,8 +84,9 @@
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal -->
                                     </div>
-                                    {% elif mypower == 1 %}
-
+                                </td>
+                                {% elif mypower == 1 %}
+                                <td>
                                     <button class="btn btn-default btn-xs" data-toggle="modal" 
                                         data-target="{{ '#myModalcheck' + record.recordid|string }}">更新
                                     </button>
@@ -111,10 +115,8 @@
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal -->
                                     </div>
-
-                                    {% endif %}
                                 </td>
-
+                                    {% endif %}
 
                                 <td>{{ record.work1 }}</td>
                                 <td>{{ record.work2 }}</td>
