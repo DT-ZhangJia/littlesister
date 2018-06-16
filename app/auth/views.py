@@ -25,7 +25,7 @@ def login():
             userlogin_check.verify_passwd(loginform_app.passwd_input.data)): 
             login_user(userlogin_check, loginform_app.remember_me_box.data)
             return redirect(request.args.get('next') or url_for('main.index'))
-        flash('Invalid email or password.')
+        flash('Email或密码不正确。')
     return render_template('auth/login.html', loginform_display=loginform_app, wrongpw=wrongpw) 
 
 @auth.route('/logout')
@@ -33,7 +33,7 @@ def login():
 def logout():
     """logout"""
     logout_user()
-    flash('You have been logged out.') 
+    flash('你已经注销。') 
     return redirect(url_for('main.index'))
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -52,9 +52,9 @@ def register():
         mydb.session.add(newuser)# pylint: disable=no-member
         mydb.session.commit()# pylint: disable=no-member 
         token = newuser.generate_confirmation_token()
-        send_email(newuser.email, 'Confirm Your Account',
+        send_email(newuser.email, '确认邮箱',
                    'auth/email/confirm', mailuser=newuser, token=token)
-        flash('A confirmation email sent.')
+        flash('验证邮件已发送。')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', registerform_display=registerform_app)
 
@@ -66,9 +66,9 @@ def confirmmail(token):
     if current_user.confirmed:
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
-        flash('You have confirmed your account. Thanks!')
+        flash('你已验证你的账户。谢谢！')
     else:
-        flash('The confirmation link is invalid or has expired.')
+        flash('验证链接不正确或者已失效。')
     return redirect(url_for('main.index'))
 
 
@@ -94,9 +94,9 @@ def unconfirmed():
 def resend_confirmation():
     """重新发送确认邮件"""
     token = current_user.generate_confirmation_token()
-    send_email(current_user.email, 'Confirm Your Account',
+    send_email(current_user.email, '确认邮箱',
                'auth/email/confirm', mailuser=current_user, token=token)
-    flash('A confirmation email sent.')
+    flash('验证邮件已发送。')
     return redirect(url_for('main.index'))
 
 @auth.route('/changepassword', methods=['GET', 'POST'])
@@ -108,9 +108,9 @@ def change_passwd():
             current_user.passwd = changepw_app.passwd_chg_input.data
             mydb.session.add(current_user)# pylint: disable=no-member
             mydb.session.commit()
-            flash('Password is changed.')
+            flash('密码已修改。')
         else:
-            flash('Old password is not correct.')
+            flash('旧密码不正确。')
     return render_template('auth/changepassword.html', changepwform_display=changepw_app)
 
 @auth.route('/reset', methods=['GET', 'POST'])
@@ -122,11 +122,11 @@ def password_reset_request():
         requestuser = User.query.filter_by(email=resetform_app.email_request_input.data).first()
         if requestuser:
             resettoken = requestuser.generate_resetpw_token()
-            send_email(requestuser.email, 'Reset Your Password',
+            send_email(requestuser.email, '重置密码',
                        'auth/email/reset_password',
                        mailuser=requestuser, token=resettoken,
                        next=request.args.get('next'))
-        flash('An email with instructions to reset your password has been sent to you.')
+        flash('一封指导重设密码的邮件已发送到你邮箱。')
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', resetform_display=resetform_app)
 
@@ -144,7 +144,7 @@ def password_reset(token):
         resetquery = User.query.filter_by(uid=resetid).first()
         resetpwform_app.email_resetpw_input.data = resetquery.email 
     except: # pylint: disable=W0702
-        flash('Your url is expired.')
+        flash('你的链接已失效。')
         return redirect(url_for('main.index'))
 
     if resetpwform_app.validate_on_submit():
@@ -152,9 +152,9 @@ def password_reset(token):
         if resetuser is None:
             return redirect(url_for('main.index'))
         if resetuser.reset_password(token, resetpwform_app.passwd_reset_input.data):
-            flash('Your password has been updated.')
+            flash('你的密码已修改。')
             return redirect(url_for('auth.login'))
         else:
-            flash('Your password has not been updated.')
+            flash('你的密码未被修改。')
             return redirect(url_for('main.index'))
     return render_template('auth/reset_password.html', resetform_display=resetpwform_app)
