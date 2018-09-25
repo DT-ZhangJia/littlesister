@@ -18,16 +18,16 @@ from .forms import UpdateForm, UpdateCheck
 studentDict = {}
 studentrecordDict = {}
 teamrecordDict = {}
-teamdict = {1:"A", 2:"B", 3:"C", 4:"D", 5:"E", 6:"F", 7:"G", 8:"H", 9:"I", 10:"J"}
+teamdict = {1:"A", 2:"B", 3:"C", 4:"D"}
 weekdict = {1:"一", 2:"二", 3:"三", 4:"四"}
-stage = 4 #供第四期使用
+stage = 5 #供进阶1期使用
 recorddict = {}
 
 @main.route('/')
 def index():
     """index view"""
 
-    all_students = Students.query.all()
+    all_students = Students.query.filter_by(stagenum = stage).all()
     for student in all_students:
         studentDict[student.stdtid] = [student.instageid, student.stdtname, student.groupnum]
         studentrecordDict[student.stdtid] = 0
@@ -101,7 +101,7 @@ def team(groupnum):
 
     if updatecheck_app.validate_on_submit():
         checkupdate = Records.query.filter_by(recordid = updatecheck_app.modalrecordid_check.data).first()
-        checkupdate.work3 = updatecheck_app.modalcheck.data
+        checkupdate.work5 = updatecheck_app.modalcheck.data #第5列是打卡积分栏
         mydb.session.add(checkupdate)# pylint: disable=no-member
         mydb.session.commit()# pylint: disable=no-member
 
