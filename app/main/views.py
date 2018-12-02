@@ -18,9 +18,9 @@ from .forms import UpdateForm, UpdateCheck
 studentDict = {}
 studentrecordDict = {}
 teamrecordDict = {}
-teamdict = {1:"A", 2:"B", 3:"C", 4:"D"}
+teamdict = {1:"A", 2:"B", 3:"C", 4:"D", 5:"E"}
 weekdict = {1:"一", 2:"二", 3:"三", 4:"四"}
-stage = 5 #供进阶1期使用
+stage = 6 #供进阶2期使用
 recorddict = {}
 
 @main.route('/')
